@@ -7,9 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nicholas N Ryan",
-  "license": "MIT",
-  "type": "module",
+  "license": "CC BY-NC-ND 4.0",
   "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3",
     "ws": "^8.5.0"
   }
 }
