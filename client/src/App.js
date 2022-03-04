@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import { useEffect } from 'react';
 import LoginPage from "./screens/login/loginpage";
+import CreateAccountPage from "./screens/createaccount/createaccountpage"
 import './App.css';
 import {sProvider} from './socket';
 
@@ -23,6 +24,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route exact path='/' element={<LoginPage/>} />
+              <Route path='/create-account' element={<CreateAccountPage/>}/>
             </Routes>
           </BrowserRouter>
         </p>
