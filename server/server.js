@@ -5,10 +5,12 @@ const mysql = require('mysql2')
 const secret = require('./secret.json')
 const WebSocket = require('ws');
 
+//Server details
 const PORT = 8080;
 const HOST = '127.0.0.1';
 const app = express();
 
+//Database connection
 const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -16,12 +18,21 @@ const con = mysql.createConnection({
     password: secret.mysql
 });
 
+//Websocket connection
 const wss = new WebSocket.Server({ port: 8888 });
 
+
+//Express Junk
 app.use(bodyParser.json());
 
 app.use('/', express.static('../client/build'));
 
+app.get('*', (req, res)=>{
+  res.redirect(404, '/')
+})
+
+
+//Socket Junk
 wss.on('connection', function connection(ws) {
   ws.on('message', function message(data) {
     console.log('received: %s', data);
@@ -30,6 +41,10 @@ wss.on('connection', function connection(ws) {
   ws.send('Connection Established.');
 });
 
+
+
+
+//Starting the server.
 con.connect(function(err) {
     if (err) console.log(err);
     else{
