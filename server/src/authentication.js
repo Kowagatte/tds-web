@@ -31,24 +31,30 @@ function addAccount(client, username, email, password) {
 
   bcrypt.hash(password, saltrounds, function(err, hash) {
 
-    if(err){console.log((500, "Failed to hash password.")); return;}
+    if(err){
+      client.send(packets.Packet.Construct(packets.Packet.Response, {code: 500, message:"Server Issue, Please try again."}))
+      //console.log((500, "Server Issue, Please try again."));
+    }else{
 
-    var sqlStatement = `insert into accounts (username, email, password) values (${server.con.escape(username)}, ${server.con.escape(email)}, ${server.con.escape(hash)});`;
-    server.con.query(sqlStatement, function (error, result) {
-      if (error){
-        if(error.code === 'ER_DUP_ENTRY'){
-          console.log((409, error.sqlMessage))
-          return
+      var sqlStatement = `insert into accounts (username, email, password) values (${server.con.escape(username)}, ${server.con.escape(email)}, ${server.con.escape(hash)});`;
+      server.con.query(sqlStatement, function (error, result) {
+        if (error){
+          if(error.code === 'ER_DUP_ENTRY'){
+            client.send(packets.Packet.Construct(packets.Packet.Response, {code: 409, message:error.sqlMessage}))
+            //console.log((409, error.sqlMessage))
+          }else{
+            //console.log(error)
+            client.send(packets.Packet.Construct(packets.Packet.Response, {code: 400, message:"Unknown Error Happened"}))
+            //console.log((400, "Unknown Error Happened"))
+          }
         }else{
-          console.log(error)
-          console.log((400, "Unknown Error Happened"))
-          return
+          client.send(packets.Packet.Construct(packets.Packet.Response, {code: 200, message:"Account Successfully Created."}))
+          //console.log((200, "Account Successfully Created."))
         }
-      }else{
-        console.log((200, "Account Successfully Created."))
-        return
-      }
-    });
+      });
+
+    }
+
   });
 }
 

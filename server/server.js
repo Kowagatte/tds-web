@@ -69,7 +69,7 @@ wss.on('connection', (client) =>{
   });
 
   client.on('close', (reasonCode, description)=>{
-    console.log((new Date()) + ' Peer ' + client.remoteAddress + ' disconnected.');
+    console.log((new Date()) + ' Peer ' + clients.clientList[client] + ' disconnected.');
   })
 
   clients.saveClient(client)
