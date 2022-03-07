@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql2')
 const secret = require('./secret.json')
 const WebSocket = require('ws');
+const path = require('path');
 
 //Server details
 const PORT = 8080;
@@ -25,10 +26,10 @@ const wss = new WebSocket.Server({ port: 8888 });
 //Express Junk
 app.use(bodyParser.json());
 
-app.use('/', express.static('../client/build'));
+app.use(express.static("../client/build"))
 
 app.get('*', (req, res)=>{
-  res.redirect(404, '/')
+  res.sendFile(path.resolve('..', 'client', 'build', 'index.html'))
 })
 
 
