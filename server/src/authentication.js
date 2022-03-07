@@ -1,20 +1,25 @@
 const server = require('../server')
+const packets = require('./packets')
 const bcrypt = require('bcrypt');
 const saltrounds = 10;
 
-function authenticate(email, password) {
+function authenticate(client, email, password) {
   server.con.query(`SELECT * from accounts where email=${server.con.escape(email)}`, function (error, results, fields) {
     if (error) throw error;
     if(results.length == 0){
-      console.log((404, "Account does not exist."))
+      client.send(packets.Packet.Construct(packets.Packet.Response, {code: 404, message:"Account does not exist."}))
+      //console.log((404, "Account does not exist."))
     }else{
 
       bcrypt.compare(password, results[0].password, function(err, result){
         if(err) return;
         if(result){
-          console.log((200, "Logged in."))
+          server.clients.logInClient(client, results[0].username)
+          client.send(packets.Packet.Construct(packets.Packet.Response, {code: 200, message:"Logged in."}))
+          //console.log((200, "Logged in."))
         }else{
-          console.log((403, "Incorrect password."))
+          client.send(packets.Packet.Construct(packets.Packet.Response, {code: 403, message:"Incorrect password."}))
+          //console.log((403, "Incorrect password."))
         }
       })
 
@@ -22,7 +27,7 @@ function authenticate(email, password) {
   });
 }
 
-function addAccount(username, email, password) {
+function addAccount(client, username, email, password) {
 
   bcrypt.hash(password, saltrounds, function(err, hash) {
 

@@ -2,14 +2,14 @@ const auth = require('./authentication')
 
 class Packet{
 
-  static Login = new Packet(1024, "Login", (body) =>{
-    console.log(auth.authenticate(body.email, body.password))
-    //console.log('1')
+  static Response = new Packet(1, "Response", () =>{})
+
+  static Login = new Packet(1024, "Login", (client, body) =>{
+    auth.authenticate(client, body.email, body.password)
   })
 
-  static CreateAccount = new Packet(1025, "CreateAccount", (body) =>{
-    console.log(auth.addAccount(body.username, body.email, body.password))
-    //console.log('2')
+  static CreateAccount = new Packet(1025, "CreateAccount", (client, body) =>{
+    auth.addAccount(client, body.username, body.email, body.password)
   })
 
   constructor(id, name, execute){

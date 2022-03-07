@@ -33,18 +33,47 @@ app.get('*', (req, res)=>{
   res.sendFile(path.resolve('..', 'client', 'build', 'index.html'))
 })
 
+class Clients{
+  constructor(){
+    this.clientList = {};
+    this.saveClient = this.saveClient.bind(this);
+    this.logInClient = this.logInClient.bind(this);
+    this.logOutClient = this.logOutClient.bind(this);
+    this.disconnect = this.disconnect.bind(this);
+  }
+  saveClient(client){
+    this.clientList[client] = 'Guest';
+  }
+  logInClient(client, account){
+    this.clientList[client] = account;
+  }
+  logOutClient(client, account){
+    this.clientList[client] = 'Guest';
+  }
+  disconnect(client){
+    delete this.clientList[client];
+  }
+}
 
-//Socket Junk
-wss.on('connection', function connection(ws) {
-  ws.on('message', function message(data) {
-    var parsedData = JSON.parse(data)
-    if(parsedData.id in packetDict){
-      packetDict[parsedData.id].execute(parsedData.body)
+const clients = new Clients();
+
+wss.on('connection', (client) =>{
+  client.on('message', (msg) =>{
+
+    console.log(clients.clientList[client] + ': %s', msg)
+
+    var data = JSON.parse(msg)
+    if(data.id in packetDict){
+      packetDict[data.id].execute(client, data.body)
     }
-    console.log('received: %s', data);
   });
 
-  ws.send('Connection Established.');
+  client.on('close', (reasonCode, description)=>{
+    console.log((new Date()) + ' Peer ' + client.remoteAddress + ' disconnected.');
+  })
+
+  clients.saveClient(client)
+  console.log('Client Connected.')
 });
 
 
@@ -65,4 +94,5 @@ con.connect(function(err) {
     }
 });
 
-exports.con = con
+exports.con = con;
+exports.clients = clients;
