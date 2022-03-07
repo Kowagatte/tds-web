@@ -2,6 +2,7 @@ import "./createaccountpage.css"
 import {sProvider} from '../../socket';
 import React, {useEffect, useState,} from "react";
 import {useNavigate} from "react-router-dom";
+import {Packet} from "../../packet"
 
 function CreateAccountPage() {
   const [socket, setSocket] = useState(null)
@@ -40,7 +41,7 @@ function CreateAccountPage() {
 
                 setError('')
                 setSuccess('Account Created!')
-                socket.send(JSON.stringify({email:email, username:username, password:password}))
+                socket.send(Packet.Construct(Packet.CreateAccount, {email:email, username:username, password:password}))
                 return;
 
               }else{
