@@ -5,6 +5,7 @@ const mysql = require('mysql2')
 const secret = require('./secret.json')
 const WebSocket = require('ws');
 const path = require('path');
+const packets = require('./src/packets')
 
 //Server details
 const PORT = 8080;
@@ -36,6 +37,10 @@ app.get('*', (req, res)=>{
 //Socket Junk
 wss.on('connection', function connection(ws) {
   ws.on('message', function message(data) {
+    var parsedData = JSON.parse(data)
+    if(parsedData.id in packetDict){
+      packetDict[parsedData.id].execute(parsedData.body)
+    }
     console.log('received: %s', data);
   });
 
@@ -43,13 +48,21 @@ wss.on('connection', function connection(ws) {
 });
 
 
-
+const packetDict = {}
 
 //Starting the server.
 con.connect(function(err) {
     if (err) console.log(err);
     else{
-        app.listen(PORT, HOST);
-        console.log('SERVER RUNNING');
+
+      Object.keys(packets.Packet).forEach(packet => {
+        packetDict[packets.Packet[packet].id] = packets.Packet[packet]
+      });
+
+      app.listen(PORT, HOST);
+      console.log('SERVER RUNNING');
+
     }
 });
+
+exports.con = con
