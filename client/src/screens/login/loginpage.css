@@ -2,3 +2,11 @@
   padding-top: 20px;
   color: #de5f5f;
 }
+
+div#email-field{
+  padding-bottom: 10px;
+}
+
+div#password-field{
+  padding-bottom: 10px;
+}

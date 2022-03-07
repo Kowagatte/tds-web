@@ -50,7 +50,7 @@ function LoginPage() {
         <form id={'login-form'} onSubmit={handleSubmit}>
             <div id={'email-field'}>
               <label>Email:</label><br/>
-              <input class={'field'} type={'text'} value={email} onChange={e => setEmail(e.target.value)}/><br/>
+              <input className={'field'} type={'text'} value={email} onChange={e => setEmail(e.target.value)}/><br/>
             </div>
             <div id={'password-field'}>
               <label>Password:</label><br/>

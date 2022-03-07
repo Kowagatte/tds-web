@@ -21,15 +21,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          <BrowserRouter>
-            <Routes>
-              <Route exact path='/' element={<LoginPage/>} />
-              <Route path='/create-account' element={<CreateAccountPage/>}/>
-              <Route path='/play' element={<GamePage/>}/>
-            </Routes>
-          </BrowserRouter>
-        </p>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path='/' element={<LoginPage/>} />
+            <Route path='/create-account' element={<CreateAccountPage/>}/>
+            <Route path='/play' element={<GamePage/>}/>
+          </Routes>
+        </BrowserRouter>
       </header>
     </div>
   );
