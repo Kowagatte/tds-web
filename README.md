@@ -11,16 +11,16 @@ So the goal date is Mar. 17, 2022
 
 ### Tasks:
   - Server
-    - [ ] Serve client webpages
-    - [ ] Authenticate users
-    - [ ] Store credentials in MySQL database.
+    - [x] Serve client webpages
+    - [x] Authenticate users
+    - [x] Store credentials in MySQL database.
     - [ ] Match players into games
     - [ ] Control game logic
     - [ ] Match chat
     - [ ] Global chat
     - [ ] ELO ratings
   - Client
-    - [ ] Login and Account creation
+    - [x] Login and Account creation
     - [ ] display game
     - [ ] allow player controls
 

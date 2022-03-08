@@ -4,16 +4,14 @@ import LoginPage from "./screens/login/loginpage";
 import CreateAccountPage from "./screens/createaccount/createaccountpage";
 import GamePage from "./screens/game/game";
 import './App.css';
-import {sProvider} from './socket';
+import {getSocket} from './socket';
 
 function App() {
 
   useEffect(() =>{
-    var socket = sProvider.getSocket();
+    var socket = getSocket();
     if(socket){
-      socket.onmessage = ({data}) => {
-        console.log('Server: ', data)
-      }
+      
     }
   }, []);
 

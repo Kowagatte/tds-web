@@ -1,11 +1,10 @@
 import "./createaccountpage.css"
-import {sProvider} from '../../socket';
+import {getSocket, addMessageHandler, removeMessageHandler} from '../../socket';
 import React, {useEffect, useState,} from "react";
 import {useNavigate} from "react-router-dom";
 import {Packet} from "../../packet"
 
 function CreateAccountPage() {
-  const [socket, setSocket] = useState(null)
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -15,16 +14,24 @@ function CreateAccountPage() {
   let navigate = useNavigate();
 
 
-  useEffect(() =>{
-    var parentSocket = sProvider.getSocket();
-    if(parentSocket){
-      parentSocket.onmessage = ({data}) => {
-        console.log('Server: ', data)
+  useEffect(()=>{
+    const handler = (data) => {
+      var parsedData = JSON.parse(data)
+      if(parsedData.id === 1){
+        if(parsedData.body.code != 200){
+          setError(parsedData.body.message)
+          setSuccess('')
+        }else{
+          setError('')
+          setSuccess('Account Created!')
+        }
       }
-      setSocket(parentSocket)
+      console.log(data)
     }
-  }, []);
 
+    addMessageHandler(handler)
+    return () => removeMessageHandler(handler)
+  })
 
   const handleSubmit = (evt) => {
       evt.preventDefault()
@@ -39,9 +46,7 @@ function CreateAccountPage() {
 
               if(password === confirmPassword){
 
-                setError('')
-                setSuccess('Account Created!')
-                socket.send(Packet.Construct(Packet.CreateAccount, {email:email, username:username, password:password}))
+                getSocket().send(Packet.Construct(Packet.CreateAccount, {email:email, username:username, password:password}))
                 return;
 
               }else{

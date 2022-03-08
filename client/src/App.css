@@ -1,3 +1,8 @@
+@font-face {
+  font-family: bitpotion;
+  src: local('bitpotion'), url(./fonts/BitPotionExt.ttf) format('truetype');
+}
+
 .App {
   text-align: center;
 }

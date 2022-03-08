@@ -1,9 +1,19 @@
-var sProvider = (function() {
-    var socket = new WebSocket('ws://127.0.0.1:8888');
+const messageHandlers = new Set()
+const socket = new WebSocket('ws://127.0.0.1:8888');
+socket.onmessage = ({data}) => {
+  messageHandlers.forEach((handler) => handler(data))
+}
 
-    return {
-        getSocket: function() { return socket;}
-    }
-})();
+export const addMessageHandler = (handler) => {
+  messageHandlers.add(handler)
+}
 
-exports.sProvider = sProvider;
+export const removeMessageHandler = (handler) =>{
+  messageHandlers.delete(handler)
+}
+
+export function getSocket() {
+  return socket
+}
+
+//exports.sProvider = sProvider;

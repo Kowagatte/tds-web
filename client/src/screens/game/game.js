@@ -1,15 +1,12 @@
 import React, {useEffect, useState,} from "react";
-import {sProvider} from '../../socket';
+import {getSocket} from '../../socket';
 
 function GamePage() {
     const [socket, setSocket] = useState(null)
 
     useEffect(() =>{
-      var parentSocket = sProvider.getSocket();
+      var parentSocket = getSocket();
       if(parentSocket){
-        parentSocket.onmessage = ({data}) => {
-          console.log('Server: ', data)
-        }
         setSocket(parentSocket)
       }
 
@@ -18,7 +15,7 @@ function GamePage() {
 
       // Create gradient
       var grd = ctx.createLinearGradient(0, 0, 800, 0);
-      grd.addColorStop(0, "red");
+      grd.addColorStop(0, "blue");
       grd.addColorStop(1, "white");
 
       // Fill with gradient

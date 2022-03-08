@@ -1,26 +1,32 @@
 import "./loginpage.css"
-import {sProvider} from '../../socket';
-import React, {useEffect, useState,} from "react";
+import {getSocket, addMessageHandler, removeMessageHandler} from '../../socket';
+import React, {useEffect, useCallback, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Packet} from "../../packet"
 
 function LoginPage() {
-  const [socket, setSocket] = useState(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   let navigate = useNavigate();
 
+   useEffect(()=>{
+     const handler = (data) => {
+       var parsedData = JSON.parse(data)
+       if(parsedData.id === 1){
+         if(parsedData.body.code != 200){
+           setError(parsedData.body.message)
+         }else{
+           //Redirect to game
+           navigate('/play');
+         }
+       }
+       console.log(data)
+     }
 
-  useEffect(() =>{
-    var parentSocket = sProvider.getSocket();
-    if(parentSocket){
-      parentSocket.onmessage = ({data}) => {
-        console.log('Server: ', data)
-      }
-      setSocket(parentSocket)
-    }
-  }, []);
+     addMessageHandler(handler)
+     return () => removeMessageHandler(handler)
+   })
 
 
   const handleSubmit = (evt) => {
@@ -28,15 +34,13 @@ function LoginPage() {
       console.log("Attempted to login")
       if(email !== ""){
         if(password !== ""){
-          socket.send(Packet.Construct(Packet.Login, {email:email, password:password}))
+          getSocket().send(Packet.Construct(Packet.Login, {email:email, password:password}))
         }else{
           setError('You must provide a password.')
         }
       }else{
         setError('You must provide a email.')
       }
-      //socket.send('trying to login')
-      //Do something
   }
 
   const createAccountClick = () => {
