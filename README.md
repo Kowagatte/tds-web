@@ -20,6 +20,17 @@ So the goal date is Mar. 17, 2022
     - [ ] Global chat
     - [ ] ELO ratings
   - Client
+    - pages
+      - [x] Login
+      - [x] Create Account
+      - [ ] Game
+      - Main
+        - [ ] Queue Buttons
+        - [ ] Leader board
+        - [ ] Live Match
+        - [ ] Match History
+        - [ ] Profile Badge
+        - [x] Sign In Button
     - [x] Login and Account creation
     - [ ] display game
     - [ ] allow player controls

@@ -1,8 +1,8 @@
 function GameButton() {
   return(
-    <div>
+    <button className={'game-button'}>
       GameButton
-    </div>
+    </button>
   );
 }
 

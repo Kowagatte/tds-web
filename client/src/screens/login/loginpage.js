@@ -18,7 +18,7 @@ function LoginPage() {
            setError(parsedData.body.message)
          }else{
            //Redirect to game
-           navigate('/play');
+           navigate('/');
          }
        }
        console.log(data)

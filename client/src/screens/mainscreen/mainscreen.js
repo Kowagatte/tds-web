@@ -5,6 +5,9 @@ import LiveMatch from "./livematch";
 import ProfileBadge from "./profilebadge";
 import SignIn from "./signin";
 import MatchHistory from "./matchhistory"
+import GameButton from "./gamebutton"
+
+import {Link} from 'react-router-dom';
 
 function MainScreen() {
 
@@ -18,6 +21,9 @@ function MainScreen() {
       <div id={'column1'}>
         <LeaderBoard/>
         <LiveMatch/>
+      </div>
+      <div id={'column2'}>
+        <GameButton/>
       </div>
       <div id={'column3'}>
         <ProfileBadge/>
