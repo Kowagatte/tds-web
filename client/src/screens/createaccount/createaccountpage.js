@@ -26,7 +26,6 @@ function CreateAccountPage() {
           setSuccess('Account Created!')
         }
       }
-      console.log(data)
     }
 
     addMessageHandler(handler)
@@ -35,7 +34,6 @@ function CreateAccountPage() {
 
   const handleSubmit = (evt) => {
       evt.preventDefault()
-      console.log("Attempted to login")
       if(username !== ""){
 
         if(email !== ""){
@@ -71,12 +69,11 @@ function CreateAccountPage() {
   }
 
   const loginClick = () => {
-    console.log("wants to create account")
-    navigate('/');
+    navigate('/login');
   }
 
   return(
-    <div>
+    <div className={'createaccountpage'}>
         <h1>TopDownShooter</h1>
         <form onSubmit={handleSubmit}>
             <label>Username:</label><br/>

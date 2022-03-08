@@ -49,7 +49,7 @@ function LoginPage() {
   }
 
   return(
-    <div>
+    <div className={'loginpage'}>
         <h1>TopDownShooter</h1>
         <form id={'login-form'} onSubmit={handleSubmit}>
             <div id={'email-field'}>
