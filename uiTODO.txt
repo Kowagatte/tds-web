@@ -1,19 +1,22 @@
 MainScreen:
 
-  - [ ] TopBar
+  - [x] TopBar
     - [ ] CSS
 
-  - [ ] LeaderBoard
+  - [x] LeaderBoard
     - [ ] CSS
 
-  - [ ] Live Game
+  - [x] Live Game
     - [ ] CSS
 
   - [ ] GameModeSelector
     - [ ] CSS
 
-  - [ ] ProfileBadge
+  - [x] ProfileBadge
     - [ ] CSS
 
   - [x] SignIn Button
+    - [ ] CSS
+
+  - [ ] Match History
     - [ ] CSS

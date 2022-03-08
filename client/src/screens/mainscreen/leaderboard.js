@@ -1,5 +1,3 @@
-import "./leaderboard.css"
-
 function LeaderBoard() {
   return(
     <div className={'leaderboardcontainer'}>

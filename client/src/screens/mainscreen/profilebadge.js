@@ -1,5 +1,3 @@
-import "./profilebadge.css"
-
 function ProfileBadge() {
   return(
     <div className={'profilebadgecontainer'}>

@@ -10,14 +10,19 @@ function MainScreen() {
 
   return(
     <div className={'mainscreenpage'}>
-      <div className={'title'}>
-        <img className={'logo'} src={logo} href={''}/> TDShooter
+      <div className={'header'}>
+        <img className={'logo'} src={logo} href={''}/>
+        <div className={'title'}>TDShooter</div>
+        <SignIn/>
       </div>
-      <SignIn/>
-      <LeaderBoard/>
-      <LiveMatch/>
-      <ProfileBadge/>
-      <MatchHistory/>
+      <div id={'column1'}>
+        <LeaderBoard/>
+        <LiveMatch/>
+      </div>
+      <div id={'column3'}>
+        <ProfileBadge/>
+        <MatchHistory/>
+      </div>
     </div>
   );
 
