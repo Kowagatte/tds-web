@@ -1,4 +1,5 @@
 const messageHandlers = new Set()
+
 const socket = new WebSocket('ws://127.0.0.1:8888');
 socket.onmessage = ({data}) => {
   messageHandlers.forEach((handler) => handler(data))
