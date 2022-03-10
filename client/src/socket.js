@@ -1,8 +1,10 @@
 const messageHandlers = new Set()
 
-const socket = new WebSocket('ws://127.0.0.1:8888');
-socket.onmessage = ({data}) => {
-  messageHandlers.forEach((handler) => handler(data))
+export const connectToServer = () => {
+  socket = new WebSocket('ws://127.0.0.1:8888');
+  socket.onmessage = ({data}) => {
+    messageHandlers.forEach((handler) => handler(data))
+  }
 }
 
 export const addMessageHandler = (handler) => {
@@ -16,5 +18,8 @@ export const removeMessageHandler = (handler) =>{
 export function getSocket() {
   return socket
 }
+
+var socket = null;
+connectToServer()
 
 //exports.sProvider = sProvider;
