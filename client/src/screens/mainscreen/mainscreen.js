@@ -7,9 +7,13 @@ import SignIn from "./signin";
 import MatchHistory from "./matchhistory"
 import GameButton from "./gamebutton"
 
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 function MainScreen() {
+
+  const location = useLocation();
+
+  //const {username, mmr, profile_picture} = route.params;
 
   return(
     <div className={'mainscreenpage'}>
@@ -26,7 +30,9 @@ function MainScreen() {
         <GameButton/>
       </div>
       <div id={'column3'}>
-        <ProfileBadge/>
+
+        {location.state !== null ? <ProfileBadge username={location.state.username} mmr={location.state.mmr} profile_picture={location.state.profile_picture}/> : <ProfileBadge/>}
+
         <MatchHistory/>
       </div>
     </div>

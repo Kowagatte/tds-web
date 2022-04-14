@@ -15,7 +15,12 @@ function authenticate(client, email, password) {
         if(err) return;
         if(result){
           server.clients.logInClient(client, results[0].username)
-          client.send(packets.Packet.Construct(packets.Packet.Response, {code: 200, message:"Logged in."}))
+          client.send(
+            packets.Packet.Construct(
+              packets.Packet.Response,
+              {code: 200, message:"Logged in.", details: {username: results[0].username, mmr: results[0].mmr, profile_picture: "https://t3.ftcdn.net/jpg/00/64/67/80/360_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg"}}
+            )
+          )
           //console.log((200, "Logged in."))
         }else{
           client.send(packets.Packet.Construct(packets.Packet.Response, {code: 403, message:"Incorrect password."}))

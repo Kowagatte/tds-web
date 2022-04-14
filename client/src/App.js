@@ -33,8 +33,7 @@ function App() {
        setTimeout(reconnect, 2000)
      }
     }
-    console.log(connection)
-    console.log(socket)
+
  }, [connection]);
 
   return (
@@ -53,7 +52,7 @@ function App() {
         {
           connection !== 1 &&
           <div className={'atr-page'}>
-            <h1>Attempting to conenct to server.</h1>
+            <h1>Attempting to connect to server.</h1>
             <img src={gear} className="gear-img" alt="gear"/>
           </div>
         }

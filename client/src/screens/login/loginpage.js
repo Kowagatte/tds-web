@@ -1,6 +1,6 @@
 import "./loginpage.css"
 import {getSocket, addMessageHandler, removeMessageHandler} from '../../socket';
-import React, {useEffect, useCallback, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Packet} from "../../packet"
 
@@ -14,11 +14,11 @@ function LoginPage() {
      const handler = (data) => {
        var parsedData = JSON.parse(data)
        if(parsedData.id === 1){
-         if(parsedData.body.code != 200){
+         if(parsedData.body.code !== 200){
            setError(parsedData.body.message)
          }else{
-           //Redirect to game
-           navigate('/');
+           //parsedData.body.details contains information for profile badge
+           navigate('/', {state: parsedData.body.details})
          }
        }
        console.log(data)
