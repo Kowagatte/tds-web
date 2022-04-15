@@ -1,5 +1,8 @@
 import React, {useEffect, useState,} from "react";
 import {getSocket} from '../../socket';
+import PlayerBadge from "./playerbadge"
+import Scoreboard from "./scoreboard"
+import "./game.css"
 
 function GamePage() {
     const [socket, setSocket] = useState(null)
@@ -25,9 +28,13 @@ function GamePage() {
     }, []);
 
     return(
-      <div>
+      <center>
+        <PlayerBadge/>
+        <PlayerBadge/>
+        <Scoreboard/>
         <canvas id="gameFrame" width="800" height="600"></canvas>
-      </div>
+
+      </center>
     );
 }
 
