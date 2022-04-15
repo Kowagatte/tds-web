@@ -9,7 +9,7 @@ const packets = require('./src/packets')
 
 //Server details
 const PORT = 8080;
-const HOST = '127.0.0.1';
+const HOST = '192.168.0.14';
 const app = express();
 
 //Database connection
@@ -21,7 +21,7 @@ const con = mysql.createConnection({
 });
 
 //Websocket connection
-const wss = new WebSocket.Server({ port: 8888 });
+const wss = new WebSocket.Server({ host: '192.168.0.14', port: 8888 });
 
 
 //Express Junk

@@ -1,7 +1,7 @@
 const messageHandlers = new Set()
 
 export const connectToServer = () => {
-  socket = new WebSocket('ws://127.0.0.1:8888');
+  socket = new WebSocket('ws://174.2.162.131:8888');
   socket.onmessage = ({data}) => {
     messageHandlers.forEach((handler) => handler(data))
   }
